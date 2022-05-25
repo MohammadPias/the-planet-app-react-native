@@ -4,6 +4,10 @@ import { useFonts } from 'expo-font';
 import { typography } from './src/theme/typography';
 import Text from './src/components/Text/Text';
 import { colors } from './src/theme/colors';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from './src/screens/Home';
+import ItemDetails from './src/screens/ItemDetails';
 
 export default function App() {
   const [loaded] = useFonts({
@@ -14,11 +18,15 @@ export default function App() {
   if (!loaded) {
     return null;
   }
+  const Stack = createNativeStackNavigator();
   return (
-    <View style={styles.container}>
-      <Text preset='h1' style={{ color: 'red' }}>Welcome</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Details" component={ItemDetails} />
+      </Stack.Navigator>
+      <StatusBar style='light' />
+    </NavigationContainer>
   );
 }
 
